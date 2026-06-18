@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+echo "== create bucket"
+
+
+
+BUCKET_NAME="$1"
+
+# check-for-bucket-name
+if [ -z "$BUCKET_NAME" ]; then
+    echo "There needs to be a bucket name eg. ./bucket my-bucket-name"
+    exit 1
+fi
+
+
+# https://docs.aws.amazon.com/cli/latest/reference/s3api/create-bucket.html
+aws s3api create-bucket --bucket $BUCKET_NAME \
+--query Location \
+--output text

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+echo "PUT OBJECT"
+
+BUCKET_NAME="$1"
+
+if [ -z "$BUCKET_NAME" ]; then
+    echo "There needs to be a bucket name eg. ./bucket my-bucket-name"
+    exit 1
+fi
+
+FILE_NAME="$2"
+
+if [ -z "$FILE_NAME" ]; then
+    echo "There needs to be a bucket name eg. ./bucket my-bucket-name"
+    exit 1
+fi
+
+OBJECT_KEY=$(basename "$FILE_NAME")
+
+echo "BUCKET_NAME=$BUCKET_NAME"
+echo "FILE_NAME=$FILE_NAME"
+echo "OBJECT_KEY=$OBJECT_KEY"
+
+# https://docs.aws.amazon.com/cli/latest/reference/s3api/put-object.html
+aws s3api put-object \
+--bucket $BUCKET_NAME \
+--body $FILE_NAME \
+--key $OBJECT_KEY
